@@ -37,7 +37,7 @@ return new class extends Migration
             $table->string('ip')->nullable();
 
             // ROLE
-            $table->unsignedBigInteger('role_id')->default(1);
+            $table->unsignedBigInteger('role_id');
             $table->foreign('role_id')->references('id')->on('roles');
 
             $table->softDeletes();

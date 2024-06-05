@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\admin\Auth;
+namespace App\Http\Controllers\Admin\Auth;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
@@ -11,22 +11,31 @@ class AuthController extends Controller
 {
     public function index()
     {
-        if (Auth::id() > 0) {
+        if (Auth::check() && Auth::user()->role->name == 'admin') {
             return redirect()->route('admin.dashboard');
         }
         return view('admin.auth.login');
     }
+
     public function login(AuthRequest $request)
     {
         $credentials = [
             'email' => $request->input('email'),
             'password' => $request->input('password')
         ];
+
         if (Auth::attempt($credentials)) {
-            return redirect()->route('admin.dashboard')->with('success', 'Login successfully!');
+            $user = Auth::user();
+            // Check user role and redirect
+            if ($user->role->name == 'admin') {
+                flash()->success('Login Successfully!');
+                return redirect()->route('admin.dashboard');
+            }
         }
-        return redirect()->route('admin.login')->with('error', 'Invalid email or password!');
+        flash()->error('Invalid Username or Password!');
+        return view('admin.auth.login');
     }
+
     public function logout()
     {
         Auth::logout();

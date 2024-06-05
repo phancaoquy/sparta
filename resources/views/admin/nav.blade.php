@@ -31,19 +31,9 @@
                 <a href="{{ route('admin.dashboard') }}"><i class="fa fa-th-large"></i>
                     <span class="nav-label">Dashboard</span></a>
             </li>
-            {{-- Banner --}}
-            <li>
-                <a href="#"><i class="fa fa-th-large"></i>
-                    <span class="nav-label">Banner</span>
-                    <span class="fa arrow"></span></a>
-                <ul class="nav nav-second-level">
-                    <li><a href="{{ route('admin.banner') }}">All Banners</a></li>
-                    <li><a href="index.html">Add New Banner</a></li>
-                </ul>
-            </li>
             {{-- Posts --}}
             <li>
-                <a href="#"><i class="fa fa-th-large"></i>
+                <a href="#"><i class="fa fa-edit"></i>
                     <span class="nav-label">Posts</span>
                     <span class="fa arrow"></span></a>
                 <ul class="nav nav-second-level">
@@ -54,9 +44,19 @@
                     </li>
                 </ul>
             </li>
+            {{-- Banner --}}
+            <li>
+                <a href="#"><i class="fa fa-picture-o"></i>
+                    <span class="nav-label">Banner</span>
+                    <span class="fa arrow"></span></a>
+                <ul class="nav nav-second-level">
+                    <li><a href="{{ route('admin.banner') }}">All Banners</a></li>
+                    <li><a href="index.html">Add New Banner</a></li>
+                </ul>
+            </li>
             {{-- Products --}}
             <li>
-                <a href="#"><i class="fa fa-th-large"></i>
+                <a href="#"><i class="fa fa-cube"></i>
                     <span class="nav-label">Products</span>
                     <span class="fa arrow"></span></a>
                 <ul class="nav nav-second-level">
@@ -70,9 +70,25 @@
                     </li>
                 </ul>
             </li>
+            {{-- Orders --}}
+            <li>
+                <a href="#"><i class="fa fa-shopping-cart"></i>
+                    <span class="nav-label">Orders</span>
+                    <span class="fa arrow"></span></a>
+                <ul class="nav nav-second-level">
+                    <li><a href="{{ route('admin.product') }}">New Orders</a></li>
+                    <li><a href="index.html">Add New Orders</a></li>
+                    <li>
+                        <a href="dashboard_2.html">Canceled Orders</a>
+                    </li>
+                    <li>
+                        <a href="dashboard_2.html">Delivered Orders</a>
+                    </li>
+                </ul>
+            </li>
             {{-- Users --}}
             <li>
-                <a href="index.html"><i class="fa fa-th-large"></i>
+                <a href="index.html"><i class="fa fa-user-o"></i>
                     <span class="nav-label">Users</span>
                     <span class="fa arrow"></span></a>
                 <ul class="nav nav-second-level">

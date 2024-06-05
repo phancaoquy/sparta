@@ -25,7 +25,7 @@ class RegisterRequest extends FormRequest
             'name' => 'required|string|max:255',
             'email' => 'required|string|email|unique:users',
             'password' => 'required|string|min:5',
-            // 'confirmPassword' => 'required',
+            'confirmPassword' => 'required|same:password',
           ];
     }
     public function messages(): array{
@@ -34,7 +34,8 @@ class RegisterRequest extends FormRequest
             'email.required' => 'Email is required',
             'email.email' => 'Email is not valid',
             'password.required' => 'Password is required',
-            // 'confirmPassword.required' => 'Confirm password is required',
+            'confirmPassword.required' => 'Confirm password is required',
+            'confirmPassword.same' => 'Confirm password must match password',
         ];
     }
 }

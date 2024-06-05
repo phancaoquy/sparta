@@ -1,48 +1,57 @@
 <?php
 
-namespace App\Http\Controllers\client\Auth;
+namespace App\Http\Controllers\Client\Auth;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\AuthRequest;
 use App\Http\Requests\RegisterRequest;
 use App\Models\User;
-use Illuminate\Support\Facades\Validator;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Auth;
+use Flasher\Prime\FlasherInterface;
 
 class AuthController extends Controller
 {
-    public function index(){
+    public function index()
+    {
         return view('client.Auth.login');
     }
-    public function register(){
+    public function register()
+    {
         return view('client.Auth.register');
     }
-    public function store(RegisterRequest $request){
-        $validator = Validator::make($request->all(), [
-            'name' => 'required|string|max:255',
-            'email' => 'required|string|email|unique:users',
-            'password' => 'required|string',
-        ]);
-    
-        if ($validator->fails()) {
-            return back()->withErrors($validator);
-        }
-    
+    public function store(RegisterRequest $request)
+    {
+        // Create account
         $user = User::create([
             'name' => $request->name,
             'email' => $request->email,
             'password' => Hash::make($request->password),
-            'role_id' => 1
+            'role_id' => 2,
         ]);
-    
-        // Handle successful registration (e.g., redirect, login user)
-        return redirect()->route('client.login')->with('success', 'Registration successful!');
+        flash()->success('Registration Successful!');
+        return redirect()->route('client.login');
     }
-    public function login(Request $request){
-        return view('');
+    public function login(AuthRequest $request)
+    {
+        $credentials = [
+            'email' => $request->input('email'),
+            'password' => $request->input('password')
+        ];
+
+        if (Auth::attempt($credentials)) {
+            flash()->success('Login Successfully!');
+            return redirect()->route('client.home');
+        }
+
+        flash()->error('Invalid Username or Password!');
+        return redirect()->route('client.login');
     }
-    public function logout(Request $request){
-        return view('');
+    public function logout()
+    {
+        Auth::logout();
+        request()->session()->invalidate();
+        request()->session()->regenerate();
+        return redirect()->route('client.login');
     }
 }
